@@ -7,12 +7,10 @@
 //
 
 public struct Contact {
-    public let name: String
+    public var primaryField: String?
+    public var secondaryField: String?
+    public var tertiaryField: String?
     public var emails: [Email] = []
     public var phones: [Phone] = []
     public var addresses: [Address] = []
-
-    public init(name: String) {
-        self.name = name
-    }
 }

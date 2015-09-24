@@ -15,17 +15,13 @@ class ContactsTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        contact = Contact(name: "Nate")
+        contact = Contact()
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
-    }
-
-    func testName() {
-        XCTAssertEqual("Nate Armstrong", Contact(name: "Nate Armstrong").name)
     }
 
     func testEmails() {

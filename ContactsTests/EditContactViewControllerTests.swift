@@ -22,7 +22,7 @@ class EditContactViewControllerTests: XCTestCase {
     }
 
     func testNewContactForm() {
-        let contact = Contact(name: "")
+        let contact = Contact()
         let vc = EditContactViewController(contact: contact)
         XCTAssert(vc.view != nil)
         XCTAssert(vc.infoView.primaryTextField.text!.isEmpty)
@@ -30,7 +30,8 @@ class EditContactViewControllerTests: XCTestCase {
     }
 
     func testFieldSections() {
-        var contact = Contact(name: "Harry Potter")
+        var contact = Contact()
+        contact.primaryField = "Harry Potter"
         contact.phones.append(Phone(label: "personal", value: "1231231234"))
         contact.emails.append(Email(label: "muggle", value: "justamuggle@mail.com"))
         contact.emails.append(Email(label: "wizard", value: "bada$$wizard@mail.com"))
@@ -89,7 +90,7 @@ class EditContactViewControllerTests: XCTestCase {
     }
 
     func testSaveCallback() {
-        var contact = Contact(name: "Test")
+        var contact = Contact()
         contact.phones.append(Phone(label: "test label", value: "test value"))
         let vc = EditContactViewController(contact: contact)
         let delegate = MyDelegate()

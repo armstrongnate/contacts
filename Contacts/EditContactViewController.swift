@@ -25,14 +25,13 @@ public class EditContactViewController: UITableViewController {
 
     public var contact: Contact
     public var delegate: EditContactViewControllerDelegate?
-    lazy var infoView: ContactInfoView = {
+    public lazy var infoView: ContactInfoView = {
         let infoView = ContactInfoView()
-        infoView.primaryTextField.placeholder = "Company Name"
-        infoView.primaryTextField.text = self.contact.name
+        infoView.primaryTextField.text = self.contact.primaryField
         infoView.primaryTextField.addTarget(self,
             action: "textFieldValueChanged:", forControlEvents: .EditingChanged)
-        infoView.secondaryTextField.placeholder = "Contact Name"
-        infoView.tertiaryTextField.placeholder = "Type"
+        infoView.secondaryTextField.text = self.contact.secondaryField
+        infoView.tertiaryTextField.text = self.contact.tertiaryField
         return infoView
         }()
     lazy var saveButton: UIBarButtonItem = {
@@ -67,15 +66,16 @@ public class EditContactViewController: UITableViewController {
     }
 
     func save() {
-        if let name = infoView.primaryTextField.text {
-            var contact = Contact(name: name)
-            for i in 0..<self.tableView(tableView, numberOfRowsInSection: 0) - 1 {
-                let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: 0)) as! PhoneFieldTableViewCell
-                let phone = Phone(label: cell.name, value: cell.value)
-                contact.phones.append(phone)
-            }
-            delegate?.didSaveContact(contact)
+        var contact = Contact()
+        contact.primaryField = infoView.primaryTextField.text
+        contact.secondaryField = infoView.secondaryTextField.text
+        contact.tertiaryField = infoView.tertiaryTextField.text
+        for i in 0..<self.tableView(tableView, numberOfRowsInSection: 0) - 1 {
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: 0)) as! PhoneFieldTableViewCell
+            let phone = Phone(label: cell.name, value: cell.value)
+            contact.phones.append(phone)
         }
+        delegate?.didSaveContact(contact)
     }
 
     func textFieldValueChanged(textField: UITextField) {

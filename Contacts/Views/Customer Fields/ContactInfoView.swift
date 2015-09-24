@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ContactInfoView: UIView {
+public class ContactInfoView: UIView {
 
     let height: CGFloat = 150
     let imageSize: CGFloat = 60
@@ -34,9 +34,9 @@ class ContactInfoView: UIView {
             multiplier: 1.0, constant: self.imageSize))
         return view
     }()
-    let primaryTextField = AddressSeparatorTextField()
-    let secondaryTextField = AddressSeparatorTextField()
-    let tertiaryTextField = UITextField()
+    public let primaryTextField = AddressSeparatorTextField()
+    public let secondaryTextField = AddressSeparatorTextField()
+    public let tertiaryTextField = UITextField()
     lazy var stackView: UIStackView = {
         let textFieldStack = UIStackView(arrangedSubviews:
             [self.primaryTextField, self.secondaryTextField, self.tertiaryTextField])
@@ -57,7 +57,7 @@ class ContactInfoView: UIView {
         return stack
     }()
 
-    init() {
+    public init() {
         super.init(frame: CGRectZero)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(stackView)
@@ -69,7 +69,7 @@ class ContactInfoView: UIView {
             metrics: nil, views: ["stackView": stackView]))
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

@@ -80,11 +80,11 @@ class AddressFieldTableViewCell: ContactFieldTableViewCell {
 
 }
 
-class AddressSeparatorTextField: UITextField {
+public class AddressSeparatorTextField: UITextField {
     
     var startingX: CGFloat = 0
     
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         let border = CALayer()
         let width: CGFloat = 0.5
@@ -102,9 +102,9 @@ class AddressSeparatorTextField: UITextField {
 
 }
 
-class AddressRightSeparatorTextField: UITextField {
+public class AddressRightSeparatorTextField: UITextField {
     
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         let border = CALayer()
         let width: CGFloat = 0.5

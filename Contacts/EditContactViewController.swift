@@ -244,10 +244,7 @@ extension EditContactViewController {
     }
 
     func indexPathIsAddCell(indexPath: NSIndexPath) -> Bool {
-        if let _ = tableView.cellForRowAtIndexPath(indexPath) as? ContactFieldTableViewCell {
-            return false
-        }
-        return true
+        return indexPath.row == self.tableView(tableView, numberOfRowsInSection: indexPath.section) - 1
     }
 }
 

@@ -58,6 +58,7 @@ class EditContactViewControllerTests: XCTestCase {
         XCTAssert(phoneCell.indicatorImageView.image != nil)
         let addPhoneCell = vc.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
         XCTAssertEqual("add phone", addPhoneCell.textLabel!.text)
+        XCTAssertEqual(UITableViewCellEditingStyle.Delete, vc.tableView(tableView, editingStyleForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)))
 
         let emailCell = vc.tableView(tableView,
             cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 1)) as! EmailFieldTableViewCell

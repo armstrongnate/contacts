@@ -75,6 +75,8 @@ class EditContactViewControllerTests: XCTestCase {
         XCTAssertEqual("12345", addressCell.zip.text)
         let addAddressCell = vc.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 2))
         XCTAssertEqual("add address", addAddressCell.textLabel!.text)
+        XCTAssertEqual(176, vc.tableView(tableView, heightForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 2)))
+        XCTAssertEqual(44, vc.tableView(tableView, heightForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 2)))
     }
 
 }

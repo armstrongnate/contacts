@@ -81,4 +81,25 @@ class EditContactViewControllerTests: XCTestCase {
         XCTAssertEqual(44, vc.tableView(tableView, heightForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 2)))
     }
 
+    class MyDelegate: EditContactViewControllerDelegate {
+        var contact: Contact?
+        func didSaveContact(contact: Contact) {
+            self.contact = contact
+        }
+    }
+
+    func testSaveCallback() {
+        var contact = Contact(name: "Test")
+        contact.phones.append(Phone(label: "test label", value: "test value"))
+        let vc = EditContactViewController(contact: contact)
+        let delegate = MyDelegate()
+        vc.delegate = delegate
+        XCTAssert(vc.view != nil)
+        vc.save()
+        let savedContact = delegate.contact
+        XCTAssert(savedContact != nil)
+        XCTAssertEqual("test label", savedContact!.phones.first!.label)
+        XCTAssertEqual("test value", savedContact!.phones.first!.value)
+    }
+
 }

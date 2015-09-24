@@ -69,9 +69,11 @@ public class EditContactViewController: UITableViewController {
     func save() {
         if let name = infoView.primaryTextField.text {
             var contact = Contact(name: name)
-            contact.phones = self.contact.phones
-            contact.emails = self.contact.emails
-            contact.addresses = self.contact.addresses
+            for i in 0..<self.tableView(tableView, numberOfRowsInSection: 0) - 1 {
+                let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: 0)) as! PhoneFieldTableViewCell
+                let phone = Phone(label: cell.name, value: cell.value)
+                contact.phones.append(phone)
+            }
             delegate?.didSaveContact(contact)
         }
     }

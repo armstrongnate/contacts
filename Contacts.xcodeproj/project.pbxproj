@@ -22,6 +22,7 @@
 		439A701B1BB3C46100D46E55 /* LabelPickerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A701A1BB3C46100D46E55 /* LabelPickerTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		439A701D1BB3C48B00D46E55 /* ContactFieldNamePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A701C1BB3C48B00D46E55 /* ContactFieldNamePickerViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		439A70221BB3C82D00D46E55 /* EditContactViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A70211BB3C82D00D46E55 /* EditContactViewControllerTests.swift */; settings = {ASSET_TAGS = (); }; };
+		439A70621BB3D79200D46E55 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 439A70611BB3D79200D46E55 /* Media.xcassets */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		439A701A1BB3C46100D46E55 /* LabelPickerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelPickerTableViewController.swift; sourceTree = "<group>"; };
 		439A701C1BB3C48B00D46E55 /* ContactFieldNamePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactFieldNamePickerViewController.swift; sourceTree = "<group>"; };
 		439A70211BB3C82D00D46E55 /* EditContactViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditContactViewControllerTests.swift; sourceTree = "<group>"; };
+		439A70611BB3D79200D46E55 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				439A6FEC1BB39D5D00D46E55 /* Contacts.h */,
 				439A70091BB3A77000D46E55 /* Models */,
 				439A6FEE1BB39D5D00D46E55 /* Info.plist */,
+				439A70611BB3D79200D46E55 /* Media.xcassets */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				439A70621BB3D79200D46E55 /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

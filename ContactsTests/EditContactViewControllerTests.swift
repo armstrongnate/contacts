@@ -55,6 +55,7 @@ class EditContactViewControllerTests: XCTestCase {
             cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! PhoneFieldTableViewCell
         XCTAssertEqual("personal", phoneCell.nameButton.titleLabel!.text)
         XCTAssertEqual("1231231234", phoneCell.valueTextField.text)
+        XCTAssert(phoneCell.indicatorImageView.image != nil)
         let addPhoneCell = vc.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
         XCTAssertEqual("add phone", addPhoneCell.textLabel!.text)
 

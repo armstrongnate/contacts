@@ -54,7 +54,10 @@ class ContactFieldTableViewCell: UITableViewCell {
         return tf
     }()
     lazy var indicatorImageView: UIImageView = {
-        let ind = UIImageView(image: UIImage(named: "right-chevron-light"))
+        let image = UIImage(named: "right-chevron-light",
+            inBundle: NSBundle(forClass: ContactFieldTableViewCell.self),
+            compatibleWithTraitCollection: nil)
+        let ind = UIImageView(image: image)
         ind.contentMode = .ScaleAspectFit
         return ind
     }()

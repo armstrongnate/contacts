@@ -23,7 +23,7 @@ class EditContactViewControllerTests: XCTestCase {
 
     func testNewContactForm() {
         let contact = Contact(name: "")
-        let vc = EditCustomerViewController(contact: contact)
+        let vc = EditContactViewController(contact: contact)
         XCTAssert(vc.view != nil)
         XCTAssert(vc.infoView.primaryTextField.text!.isEmpty)
         XCTAssertEqual(3, vc.numberOfSectionsInTableView(vc.tableView))
@@ -43,7 +43,7 @@ class EditContactViewControllerTests: XCTestCase {
             zip: "12345")
         contact.addresses.append(address)
 
-        let vc = EditCustomerViewController(contact: contact)
+        let vc = EditContactViewController(contact: contact)
         XCTAssert(vc.view != nil)
         let tableView = vc.tableView
 

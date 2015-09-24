@@ -17,7 +17,7 @@
 		439A70151BB3AF6800D46E55 /* AddressFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A70101BB3AF6800D46E55 /* AddressFieldTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		439A70161BB3AF6800D46E55 /* EmailFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A70111BB3AF6800D46E55 /* EmailFieldTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		439A70171BB3AF6800D46E55 /* ContactFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A70121BB3AF6800D46E55 /* ContactFieldTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
-		439A70181BB3AF6800D46E55 /* CustomerInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A70131BB3AF6800D46E55 /* CustomerInfoView.swift */; settings = {ASSET_TAGS = (); }; };
+		439A70181BB3AF6800D46E55 /* ContactInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A70131BB3AF6800D46E55 /* ContactInfoView.swift */; settings = {ASSET_TAGS = (); }; };
 		439A70191BB3AF6800D46E55 /* PhoneFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A70141BB3AF6800D46E55 /* PhoneFieldTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		439A701B1BB3C46100D46E55 /* LabelPickerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A701A1BB3C46100D46E55 /* LabelPickerTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		439A701D1BB3C48B00D46E55 /* ContactFieldNamePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A701C1BB3C48B00D46E55 /* ContactFieldNamePickerViewController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -48,7 +48,7 @@
 		439A70101BB3AF6800D46E55 /* AddressFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressFieldTableViewCell.swift; sourceTree = "<group>"; };
 		439A70111BB3AF6800D46E55 /* EmailFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailFieldTableViewCell.swift; sourceTree = "<group>"; };
 		439A70121BB3AF6800D46E55 /* ContactFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactFieldTableViewCell.swift; sourceTree = "<group>"; };
-		439A70131BB3AF6800D46E55 /* CustomerInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerInfoView.swift; sourceTree = "<group>"; };
+		439A70131BB3AF6800D46E55 /* ContactInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactInfoView.swift; sourceTree = "<group>"; };
 		439A70141BB3AF6800D46E55 /* PhoneFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneFieldTableViewCell.swift; sourceTree = "<group>"; };
 		439A701A1BB3C46100D46E55 /* LabelPickerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelPickerTableViewController.swift; sourceTree = "<group>"; };
 		439A701C1BB3C48B00D46E55 /* ContactFieldNamePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactFieldNamePickerViewController.swift; sourceTree = "<group>"; };
@@ -137,7 +137,7 @@
 				439A70101BB3AF6800D46E55 /* AddressFieldTableViewCell.swift */,
 				439A70111BB3AF6800D46E55 /* EmailFieldTableViewCell.swift */,
 				439A70121BB3AF6800D46E55 /* ContactFieldTableViewCell.swift */,
-				439A70131BB3AF6800D46E55 /* CustomerInfoView.swift */,
+				439A70131BB3AF6800D46E55 /* ContactInfoView.swift */,
 				439A70141BB3AF6800D46E55 /* PhoneFieldTableViewCell.swift */,
 			);
 			path = "Customer Fields";
@@ -279,7 +279,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				439A70081BB3A32800D46E55 /* Fields.swift in Sources */,
-				439A70181BB3AF6800D46E55 /* CustomerInfoView.swift in Sources */,
+				439A70181BB3AF6800D46E55 /* ContactInfoView.swift in Sources */,
 				439A70151BB3AF6800D46E55 /* AddressFieldTableViewCell.swift in Sources */,
 				439A701B1BB3C46100D46E55 /* LabelPickerTableViewController.swift in Sources */,
 				439A70041BB39D9500D46E55 /* Contact.swift in Sources */,

@@ -14,7 +14,7 @@ public protocol EditContactViewControllerDelegate {
     func didSaveContact(contact: Contact)
 }
 
-public class EditCustomerViewController: UITableViewController {
+public class EditContactViewController: UITableViewController {
 
     enum Section: Int {
         case Phones = 0, Emails, Addresses
@@ -97,7 +97,7 @@ public class EditCustomerViewController: UITableViewController {
 }
 
 // MARK: - UITableViewDataSource
-extension EditCustomerViewController {
+extension EditContactViewController {
 
     override public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 3
@@ -153,7 +153,7 @@ extension EditCustomerViewController {
 }
 
 // MARK: - UITableViewDelegate {
-extension EditCustomerViewController {
+extension EditContactViewController {
 
     override public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 2 { // address
@@ -252,7 +252,7 @@ extension EditCustomerViewController {
 }
 
 // MARK: - CustomerFieldTableViewCellDelegate
-extension EditCustomerViewController: ContactFieldTableViewCellDelegate {
+extension EditContactViewController: ContactFieldTableViewCellDelegate {
 
     func changeContactFieldName(customerFieldCell: ContactFieldTableViewCell) {
         guard let indexPath = tableView.indexPathForCell(customerFieldCell), section = Section(rawValue: indexPath.section) else {
@@ -271,7 +271,7 @@ extension EditCustomerViewController: ContactFieldTableViewCellDelegate {
 }
 
 // MARK: - LabelPickerTableViewControllerDelegate
-extension EditCustomerViewController: LabelPickerTableViewControllerDelegate {
+extension EditContactViewController: LabelPickerTableViewControllerDelegate {
 
     func labelPicker(picker: LabelPickerTableViewController, didSelectLabel label: String) {
         let indexPath = (picker as! ContactFieldNamePickerViewController).indexPath

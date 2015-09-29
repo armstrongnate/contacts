@@ -106,6 +106,7 @@ class EditContactViewControllerTests: XCTestCase {
     func testDisablingAddRows() {
         var contact = Contact()
         contact.phones.append(Phone(label: "test label", value: "test value"))
+        contact.addresses.append(Address(label: "address"))
 
         let vc = EditContactViewController(contact: contact)
         XCTAssert(vc.view != nil)
@@ -113,6 +114,8 @@ class EditContactViewControllerTests: XCTestCase {
 
         vc.addingRowsEnabled = false
         XCTAssertEqual(1, tableView.numberOfRowsInSection(EditContactViewController.Section.Phones.rawValue))
+
+        XCTAssertEqual(176, vc.tableView(tableView, heightForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: EditContactViewController.Section.Addresses.rawValue)))
     }
 
 }

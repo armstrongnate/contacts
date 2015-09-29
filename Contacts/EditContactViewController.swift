@@ -166,7 +166,7 @@ extension EditContactViewController {
 extension EditContactViewController {
 
     override public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == 2 && indexPath.row != self.tableView(tableView, numberOfRowsInSection: 2) - 1 { // address
+        if Section(rawValue: indexPath.section)! == .Addresses && !indexPathIsAddCell(indexPath) {
             return 176
         }
         return 44

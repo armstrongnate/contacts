@@ -33,10 +33,17 @@ public class EditContactViewController: UITableViewController {
         infoView.secondaryTextField.text = self.contact.secondaryField
         infoView.tertiaryTextField.text = self.contact.tertiaryField
         return infoView
-        }()
+    }()
     lazy var saveButton: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "save")
-        }()
+    }()
+
+    public var addingRowsEnabled = true {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    public var changingFieldLabelsEnabled = true
 
 
     public init(contact: Contact) {
@@ -109,7 +116,8 @@ extension EditContactViewController {
         guard let section = Section(rawValue: section) else {
             fatalError("unknown section")
         }
-        return fieldsInSection(section).count + 1 // add one for add row
+        let num = fieldsInSection(section).count
+        return addingRowsEnabled ? num + 1 : num
     }
 
     override public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -246,6 +254,9 @@ extension EditContactViewController {
     }
 
     func indexPathIsAddCell(indexPath: NSIndexPath) -> Bool {
+        if !addingRowsEnabled {
+            return false
+        }
         return indexPath.row == self.tableView(tableView, numberOfRowsInSection: indexPath.section) - 1
     }
 }
@@ -254,6 +265,9 @@ extension EditContactViewController {
 extension EditContactViewController: ContactFieldTableViewCellDelegate {
 
     func changeContactFieldName(customerFieldCell: ContactFieldTableViewCell) {
+        guard changingFieldLabelsEnabled else {
+            return
+        }
         guard let indexPath = tableView.indexPathForCell(customerFieldCell), section = Section(rawValue: indexPath.section) else {
             fatalError("error with indexPath")
         }

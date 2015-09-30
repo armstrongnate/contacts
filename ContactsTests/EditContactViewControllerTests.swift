@@ -118,4 +118,22 @@ class EditContactViewControllerTests: XCTestCase {
         XCTAssertEqual(176, vc.tableView(tableView, heightForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: EditContactViewController.Section.Addresses.rawValue)))
     }
 
+    func testSelectOptions() {
+        var contact = Contact()
+        contact.selectOptions.append(SelectOption(label: "Type", options: ["radio", "digital"]))
+
+        let vc = EditContactViewController(contact: contact)
+        XCTAssert(vc.view != nil)
+        let tableView = vc.tableView
+
+        var typeCell = vc.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: EditContactViewController.Section.Selects.rawValue))
+        XCTAssertEqual("Type", typeCell.textLabel!.text)
+        XCTAssertEqual("Select Type", typeCell.detailTextLabel!.text)
+
+        vc.contact.selectOptions[0].values = ["radio", "digital"]
+        vc.tableView.reloadData()
+        typeCell = vc.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: EditContactViewController.Section.Selects.rawValue))
+        XCTAssertEqual("radio, digital", typeCell.detailTextLabel!.text)
+    }
+
 }

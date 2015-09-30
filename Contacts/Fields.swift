@@ -52,3 +52,15 @@ public struct Address: ContactField {
         self.init(label: label, street: "", street1: "", city: "", state: "", zip: "")
     }
 }
+
+public struct SelectOption: ContactField {
+    public var label: String
+    public var options: [String]
+    public var values: [String] = []
+    public var allowsMultiple = true
+
+    public init(label: String, options: [String]) {
+        self.label = label
+        self.options = options
+    }
+}

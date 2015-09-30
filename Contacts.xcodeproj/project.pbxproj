@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1DC432BB1BBC4E78006C92A8 /* SelectFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC432BA1BBC4E78006C92A8 /* SelectFieldTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		439A6FED1BB39D5D00D46E55 /* Contacts.h in Headers */ = {isa = PBXBuildFile; fileRef = 439A6FEC1BB39D5D00D46E55 /* Contacts.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		439A6FF41BB39D5D00D46E55 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 439A6FE91BB39D5D00D46E55 /* Contacts.framework */; settings = {ASSET_TAGS = (); }; };
 		439A6FF91BB39D5D00D46E55 /* ContactsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439A6FF81BB39D5D00D46E55 /* ContactsTests.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1DC432BA1BBC4E78006C92A8 /* SelectFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectFieldTableViewCell.swift; sourceTree = "<group>"; };
 		439A6FE91BB39D5D00D46E55 /* Contacts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Contacts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		439A6FEC1BB39D5D00D46E55 /* Contacts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Contacts.h; sourceTree = "<group>"; };
 		439A6FEE1BB39D5D00D46E55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				439A70121BB3AF6800D46E55 /* ContactFieldTableViewCell.swift */,
 				439A70131BB3AF6800D46E55 /* ContactInfoView.swift */,
 				439A70141BB3AF6800D46E55 /* PhoneFieldTableViewCell.swift */,
+				1DC432BA1BBC4E78006C92A8 /* SelectFieldTableViewCell.swift */,
 			);
 			path = "Customer Fields";
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				439A700B1BB3A99800D46E55 /* EditContactViewController.swift in Sources */,
 				439A701D1BB3C48B00D46E55 /* ContactFieldNamePickerViewController.swift in Sources */,
 				439A70171BB3AF6800D46E55 /* ContactFieldTableViewCell.swift in Sources */,
+				1DC432BB1BBC4E78006C92A8 /* SelectFieldTableViewCell.swift in Sources */,
 				439A70161BB3AF6800D46E55 /* EmailFieldTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -479,6 +483,7 @@
 				439A6FFF1BB39D5D00D46E55 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		439A70001BB39D5D00D46E55 /* Build configuration list for PBXNativeTarget "ContactsTests" */ = {
 			isa = XCConfigurationList;
@@ -487,6 +492,7 @@
 				439A70021BB39D5D00D46E55 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

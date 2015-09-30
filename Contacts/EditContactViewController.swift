@@ -17,7 +17,7 @@ public protocol EditContactViewControllerDelegate {
 public class EditContactViewController: UITableViewController {
 
     enum Section: Int {
-        case Phones = 0, Emails, Addresses
+        case Phones = 0, Emails, Addresses, Selects
 
     }
 
@@ -99,6 +99,7 @@ public class EditContactViewController: UITableViewController {
             case .Phones: return contact.phones.map{ $0 as ContactField }
             case .Emails: return contact.emails.map{ $0 as ContactField }
             case .Addresses: return contact.addresses.map{ $0 as ContactField }
+            case .Selects: return contact.selectOptions.map{ $0 as ContactField }
         }
     }
 
@@ -121,8 +122,6 @@ extension EditContactViewController {
 
     override public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
-        let cell: ContactFieldTableViewCell
-
         guard let section = Section(rawValue: indexPath.section) else {
             fatalError("unknown section")
         }
@@ -135,16 +134,23 @@ extension EditContactViewController {
         switch section {
         case .Phones:
             let phone = contact.phones[indexPath.row]
-            cell = PhoneFieldTableViewCell(phone: phone)
+            let cell = PhoneFieldTableViewCell(phone: phone)
+            cell.delegate = self
+            return cell
         case .Emails:
             let email = contact.emails[indexPath.row]
-            cell = EmailFieldTableViewCell(email: email)
+            let cell = EmailFieldTableViewCell(email: email)
+            cell.delegate = self
+            return cell
         case .Addresses:
             let address = contact.addresses[indexPath.row]
-            cell = AddressFieldTableViewCell(address: address)
+            let cell = AddressFieldTableViewCell(address: address)
+            cell.delegate = self
+            return cell
+        case .Selects:
+            let selectOption = contact.selectOptions[indexPath.row]
+            return SelectFieldTableViewCell(selectOption: selectOption)
         }
-        cell.delegate = self
-        return cell
     }
 
     func cellForInsertingFieldInSection(section: Section) -> UITableViewCell {
@@ -153,6 +159,7 @@ extension EditContactViewController {
             case .Phones: name = "phone"
             case .Emails: name = "email"
             case .Addresses: name = "address"
+            default: name = ""
         }
         let cell = UITableViewCell(style: .Default, reuseIdentifier: "insertField")
         cell.textLabel!.text = "add \(name)"
@@ -173,14 +180,12 @@ extension EditContactViewController {
 
     override public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        let section = Section(rawValue: indexPath.section)!
         if indexPathIsAddCell(indexPath) {
             tableView.beginUpdates()
             CATransaction.begin()
             CATransaction.setCompletionBlock {
                 self.tableView.cellForRowAtIndexPath(indexPath)!.becomeFirstResponder()
-            }
-            guard let section = Section(rawValue: indexPath.section) else {
-                fatalError("unknown section")
             }
 
             let label = ContactFieldLabels.first!
@@ -191,10 +196,21 @@ extension EditContactViewController {
                 contact.emails.append(Email(label: label, value: ""))
             case .Addresses:
                 contact.addresses.append(Address(label: label))
+            case .Selects:
+                return
             }
             tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
             tableView.endUpdates()
             CATransaction.commit()
+        }
+        else if section == .Selects {
+            let selectOption = contact.selectOptions[indexPath.row]
+            let picker = LabelPickerTableViewController(labels: selectOption.options)
+            picker.delegate = self
+            let navController = UINavigationController(rootViewController: picker)
+            navController.navigationItem.leftBarButtonItem =
+                UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "dismissVC")
+            presentViewController(navController, animated: true, completion: nil)
         }
     }
 
@@ -226,6 +242,7 @@ extension EditContactViewController {
                     case .Phones: contact.phones.removeAtIndex(indexPath.row)
                     case .Emails: contact.emails.removeAtIndex(indexPath.row)
                     case .Addresses: contact.addresses.removeAtIndex(indexPath.row)
+                    case .Selects: return
                 }
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
                 tableView.endUpdates()
@@ -286,11 +303,21 @@ extension EditContactViewController: ContactFieldTableViewCellDelegate {
 extension EditContactViewController: LabelPickerTableViewControllerDelegate {
 
     func labelPicker(picker: LabelPickerTableViewController, didSelectLabel label: String) {
-        let indexPath = (picker as! ContactFieldNamePickerViewController).indexPath
-        switch Section(rawValue: indexPath.section)! {
-            case .Phones: contact.phones[indexPath.row].label = label
-            case .Emails: contact.emails[indexPath.row].label = label
-            case .Addresses: contact.addresses[indexPath.row].label = label
+        if let fieldPicker = picker as? ContactFieldNamePickerViewController {
+            let indexPath = fieldPicker.indexPath
+            let section = Section(rawValue: indexPath.section)!
+            switch section {
+                case .Phones: contact.phones[indexPath.row].label = label
+                case .Emails: contact.emails[indexPath.row].label = label
+                case .Addresses: contact.addresses[indexPath.row].label = label
+                case .Selects: return
+            }
+        }
+        else if let selectedIndexPath = tableView.indexPathForSelectedRow, selection = picker.activeLabel {
+            if selectedIndexPath.section == Section.Selects.rawValue {
+                var selectOption = contact.selectOptions[selectedIndexPath.row]
+                selectOption.values = [selection]
+            }
         }
         tableView.reloadData()
         dismissVC()

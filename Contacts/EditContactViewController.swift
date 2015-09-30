@@ -304,15 +304,13 @@ extension EditContactViewController: LabelPickerTableViewControllerDelegate {
                 case .Addresses: contact.addresses[indexPath.row].label = label
                 case .Selects: return
             }
-            tableView.reloadData()
-            dismissVC()
+            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
         }
         else if let selectedIndexPath = tableView.indexPathForSelectedRow {
             if sections[selectedIndexPath.section] == .Selects {
                 contact.selectOptions[selectedIndexPath.row].values = picker.activeLabels
                 tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .None)
             }
-            navigationController?.popViewControllerAnimated(true)
         }
     }
     

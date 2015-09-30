@@ -32,6 +32,9 @@ class LabelPickerTableViewController: UITableViewController {
     var activeIndexes: [Bool]
     var allowsMultipleSelection = true
 
+
+    // MARK: - Initialization
+
     init(labels: [String]) {
         self.labels = labels
         self.activeIndexes = Array(count: labels.count, repeatedValue: false)
@@ -42,16 +45,18 @@ class LabelPickerTableViewController: UITableViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "labelCell")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "done")
     }
 
-    func done() {
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
         delegate?.labelPicker(self, didSelectLabels: activeLabels)
     }
-    
+
 }
 
 // MARK: - UITableViewDataSource

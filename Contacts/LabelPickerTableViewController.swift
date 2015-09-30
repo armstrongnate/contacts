@@ -21,7 +21,7 @@ class LabelPickerTableViewController: UITableViewController {
             return labels.filter { activeIndexes[labels.indexOf($0)!] }
         }
         set {
-            for label in activeLabels {
+            for label in newValue {
                 if let index = labels.indexOf(label) {
                     activeIndexes[index] = true
                 }

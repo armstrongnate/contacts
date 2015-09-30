@@ -23,6 +23,7 @@ class SelectFieldTableViewCell: UITableViewCell {
         else {
             detailTextLabel!.text = "Select \(selectOption.label)"
         }
+        accessoryType = .DisclosureIndicator
     }
 
     required init?(coder aDecoder: NSCoder) {

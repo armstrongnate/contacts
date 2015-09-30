@@ -270,7 +270,7 @@ extension EditContactViewController {
     }
 
     func indexPathIsAddCell(indexPath: NSIndexPath) -> Bool {
-        if !addingRowsEnabled {
+        if !addingRowsEnabled || indexPath.section == Section.Selects.rawValue {
             return false
         }
         return indexPath.row == self.tableView(tableView, numberOfRowsInSection: indexPath.section) - 1

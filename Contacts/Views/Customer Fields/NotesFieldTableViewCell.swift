@@ -21,6 +21,7 @@ class NotesFieldTableViewCell: UITableViewCell {
 
     lazy var notesTextView: UITextView = {
         let textView = UITextView()
+        textView.font = UIFont.systemFontOfSize(18)
         textView.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(textView)
         return textView

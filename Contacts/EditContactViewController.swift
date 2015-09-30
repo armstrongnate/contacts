@@ -204,9 +204,7 @@ extension EditContactViewController {
             let picker = LabelPickerTableViewController(labels: selectOption.options)
             picker.activeLabels = selectOption.values
             picker.delegate = self
-            let navController = UINavigationController(rootViewController: picker)
-            navController.navigationItem.leftBarButtonItem =
-                UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "dismissVC")
+            picker.title = selectOption.label
             navigationController?.pushViewController(picker, animated: true)
         }
     }

@@ -285,10 +285,7 @@ extension EditContactViewController: ContactFieldTableViewCellDelegate {
         namePicker.activeLabels = [field.label]
         namePicker.allowsMultipleSelection = false
         namePicker.delegate = self
-        let navController = UINavigationController(rootViewController: namePicker)
-        navController.navigationItem.leftBarButtonItem =
-            UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "dismissVC")
-        presentViewController(navController, animated: true, completion: nil)
+        navigationController?.pushViewController(namePicker, animated: true)
     }
 
 }

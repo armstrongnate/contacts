@@ -17,7 +17,7 @@ public protocol EditContactViewControllerDelegate {
 public class EditContactViewController: UITableViewController {
 
     public enum Section {
-        case Phones, Emails, Addresses, Selects
+        case Phones, Emails, Addresses, Selects, Notes
 
     }
 
@@ -101,6 +101,7 @@ public class EditContactViewController: UITableViewController {
             case .Emails: return contact.emails.map{ $0 as ContactField }
             case .Addresses: return contact.addresses.map{ $0 as ContactField }
             case .Selects: return contact.selectOptions.map{ $0 as ContactField }
+            case .Notes: return []
         }
     }
 
@@ -114,8 +115,16 @@ extension EditContactViewController {
     }
 
     override public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let num = fieldsInSection(sections[section]).count
-        return addingRowsEnabled ? num + 1 : num
+        switch sections[section] {
+        case .Phones, .Emails, .Addresses:
+            var num = fieldsInSection(sections[section]).count
+            if addingRowsEnabled { num += 1 }
+            return num
+        case .Selects:
+            return fieldsInSection(sections[section]).count
+        case .Notes:
+            return 1
+        }
     }
 
     override public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -146,6 +155,10 @@ extension EditContactViewController {
         case .Selects:
             let selectOption = contact.selectOptions[indexPath.row]
             return SelectFieldTableViewCell(selectOption: selectOption)
+        case .Notes:
+            let cell = NotesFieldTableViewCell()
+            cell.notesTextView.text = contact.notes
+            return cell
         }
     }
 
@@ -168,10 +181,17 @@ extension EditContactViewController {
 extension EditContactViewController {
 
     override public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if sections[indexPath.section] == .Addresses && !indexPathIsAddCell(indexPath) {
-            return 176
+        if indexPathIsAddCell(indexPath) {
+            return 44
         }
-        return 44
+        switch sections[indexPath.section] {
+        case .Phones, .Emails, .Selects:
+            return 44
+        case .Addresses:
+            return 176
+        case .Notes:
+            return 100
+        }
     }
 
     override public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -192,7 +212,7 @@ extension EditContactViewController {
                 contact.emails.append(Email(label: label, value: ""))
             case .Addresses:
                 contact.addresses.append(Address(label: label))
-            case .Selects:
+            case .Selects, .Notes:
                 return
             }
             tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
@@ -206,6 +226,9 @@ extension EditContactViewController {
             picker.delegate = self
             picker.title = selectOption.label
             navigationController?.pushViewController(picker, animated: true)
+        }
+        else {
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
     }
 
@@ -234,7 +257,7 @@ extension EditContactViewController {
                     case .Phones: contact.phones.removeAtIndex(indexPath.row)
                     case .Emails: contact.emails.removeAtIndex(indexPath.row)
                     case .Addresses: contact.addresses.removeAtIndex(indexPath.row)
-                    case .Selects: return
+                    case .Selects, .Notes: return
                 }
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
                 tableView.endUpdates()
@@ -258,7 +281,7 @@ extension EditContactViewController {
         guard section == 0 else {
             return 20
         }
-        return self.infoHeight
+        return infoHeight
     }
 
     func indexPathIsAddCell(indexPath: NSIndexPath) -> Bool {
@@ -302,7 +325,7 @@ extension EditContactViewController: LabelPickerTableViewControllerDelegate {
                 case .Phones: contact.phones[indexPath.row].label = label
                 case .Emails: contact.emails[indexPath.row].label = label
                 case .Addresses: contact.addresses[indexPath.row].label = label
-                case .Selects: return
+                case .Selects, .Notes: return
             }
             tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
         }

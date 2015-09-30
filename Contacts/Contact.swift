@@ -10,6 +10,7 @@ public struct Contact {
     public var primaryField: String?
     public var secondaryField: String?
     public var tertiaryField: String?
+    public var notes: String?
     public var emails: [Email] = []
     public var phones: [Phone] = []
     public var addresses: [Address] = []

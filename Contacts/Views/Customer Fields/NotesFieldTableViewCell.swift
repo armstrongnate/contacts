@@ -26,6 +26,15 @@ class NotesFieldTableViewCell: UITableViewCell {
         return textView
     }()
 
+
+    init() {
+        super.init(style: .Default, reuseIdentifier: "notesCell")
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(

@@ -31,6 +31,8 @@ class ContactFieldTableViewCell: UITableViewCell {
         button.setContentHuggingPriority(1000, forAxis: .Horizontal)
         button.contentHorizontalAlignment = .Left
         button.addTarget(self, action: "nameTapped", forControlEvents: .TouchUpInside)
+        button.titleLabel!.adjustsFontSizeToFitWidth = true
+        button.titleLabel!.minimumScaleFactor = 0.5
         return button
     }()
     var name: String {

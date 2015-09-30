@@ -15,14 +15,14 @@ protocol SelectFieldTableViewCellDelegate {
 class SelectFieldTableViewCell: UITableViewCell {
 
     init(selectOption: SelectOption) {
-        super.init(style: .Value1, reuseIdentifier: "selectOptionCell")
+        super.init(style: .Subtitle, reuseIdentifier: "selectOptionCell")
         textLabel!.text = selectOption.label
         detailTextLabel!.numberOfLines = 0
         if selectOption.values.count > 0 {
             detailTextLabel!.text = selectOption.values.joinWithSeparator(", ")
         }
         else {
-            detailTextLabel!.text = "Select \(selectOption.label)"
+            detailTextLabel!.text = ""
         }
         accessoryType = .DisclosureIndicator
     }

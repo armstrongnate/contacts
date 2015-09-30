@@ -8,6 +8,14 @@
 
 public protocol ContactField {
     var label: String { get set }
+
+    static func labelOptions() -> [String]
+}
+
+extension ContactField {
+    public static func labelOptions() -> [String] {
+        return ["owner", "manager", "agency", "other"]
+    }
 }
 
 public struct Email: ContactField {
@@ -23,6 +31,21 @@ public struct Email: ContactField {
 public struct Phone: ContactField {
     public var label: String
     public let value: String
+
+    public init(label: String, value: String) {
+        self.label = label
+        self.value = value
+    }
+}
+
+public struct SocialProfile: ContactField {
+    public var label: String
+    public let value: String
+
+
+    static public func labelOptions() -> [String] {
+        return ["Facebook", "Instagram", "Twitter", "Pinterest"]
+    }
 
     public init(label: String, value: String) {
         self.label = label

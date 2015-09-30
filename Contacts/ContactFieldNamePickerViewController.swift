@@ -12,9 +12,9 @@ class ContactFieldNamePickerViewController: LabelPickerTableViewController {
 
     var indexPath: NSIndexPath
 
-    init(indexPath: NSIndexPath) {
+    init(indexPath: NSIndexPath, labels: [String]) {
         self.indexPath = indexPath
-        super.init(labels: ContactFieldLabels)
+        super.init(labels: labels)
     }
 
     required init?(coder aDecoder: NSCoder) {

@@ -8,8 +8,6 @@
 
 import UIKit
 
-let ContactFieldLabels = ["owner", "manager", "agency", "other"]
-
 public protocol EditContactViewControllerDelegate {
     func didSaveContact(contact: Contact)
 }
@@ -17,8 +15,7 @@ public protocol EditContactViewControllerDelegate {
 public class EditContactViewController: UITableViewController {
 
     public enum Section {
-        case Phones, Emails, Addresses, Selects, Notes
-
+        case Phones, Emails, Addresses, Selects, Notes, SocialProfiles
     }
 
     public var contact: Contact
@@ -37,11 +34,10 @@ public class EditContactViewController: UITableViewController {
     }()
 
     public var sections: [Section] = [.Phones, .Emails, .Addresses, .Selects]
-    public var addingRowsEnabled = true {
-        didSet {
-            tableView.reloadData()
-        }
+    public var showAddRowForSection: ((section: Section) -> Bool) = { section in
+        return true
     }
+    public var editingStyleForIndexPath: ((indexPath: NSIndexPath) -> UITableViewCellEditingStyle)?
     public var changingFieldLabelsEnabled = true
     public var infoHeight: CGFloat = 200
 
@@ -100,6 +96,7 @@ public class EditContactViewController: UITableViewController {
             case .Phones: return contact.phones.map{ $0 as ContactField }
             case .Emails: return contact.emails.map{ $0 as ContactField }
             case .Addresses: return contact.addresses.map{ $0 as ContactField }
+            case .SocialProfiles: return contact.socialProfiles.map{ $0 as ContactField }
             case .Selects: return contact.selectOptions.map{ $0 as ContactField }
             case .Notes: return []
         }
@@ -115,13 +112,14 @@ extension EditContactViewController {
     }
 
     override public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch sections[section] {
-        case .Phones, .Emails, .Addresses:
-            var num = fieldsInSection(sections[section]).count
-            if addingRowsEnabled { num += 1 }
+        let section = sections[section]
+        switch section {
+        case .Phones, .Emails, .Addresses, .SocialProfiles:
+            var num = fieldsInSection(section).count
+            if showAddRowForSection(section: section) { num += 1 }
             return num
         case .Selects:
-            return fieldsInSection(sections[section]).count
+            return fieldsInSection(section).count
         case .Notes:
             return 1
         }
@@ -144,6 +142,11 @@ extension EditContactViewController {
         case .Emails:
             let email = contact.emails[indexPath.row]
             let cell = EmailFieldTableViewCell(email: email)
+            cell.delegate = self
+            return cell
+        case .SocialProfiles:
+            let profile = contact.socialProfiles[indexPath.row]
+            let cell = SocialProfileFieldTableViewCell(socialProfile: profile)
             cell.delegate = self
             return cell
         case .Addresses:
@@ -184,7 +187,7 @@ extension EditContactViewController {
             return 44
         }
         switch sections[indexPath.section] {
-        case .Phones, .Emails, .Selects:
+        case .Phones, .Emails, .Selects, .SocialProfiles:
             return 44
         case .Addresses:
             return 176
@@ -203,14 +206,16 @@ extension EditContactViewController {
                 self.tableView.cellForRowAtIndexPath(indexPath)!.becomeFirstResponder()
             }
 
-            let label = ContactFieldLabels.first!
             switch section {
             case .Phones:
-                contact.phones.append(Phone(label: label, value: ""))
+                contact.phones.append(Phone(label: Phone.labelOptions().first!, value: ""))
             case .Emails:
-                contact.emails.append(Email(label: label, value: ""))
+                contact.emails.append(Email(label: Email.labelOptions().first!, value: ""))
             case .Addresses:
-                contact.addresses.append(Address(label: label))
+                contact.addresses.append(Address(label: Address.labelOptions().first!))
+            case .SocialProfiles:
+                contact.socialProfiles
+                    .append(SocialProfile(label: SocialProfile.labelOptions().first!, value: ""))
             case .Selects, .Notes:
                 return
             }
@@ -233,6 +238,9 @@ extension EditContactViewController {
 
     override public func tableView(tableView: UITableView,
         editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+            if let callback = editingStyleForIndexPath {
+                return callback(indexPath: indexPath)
+            }
             if indexPathIsAddCell(indexPath) {
                 return .Insert
             }
@@ -256,6 +264,7 @@ extension EditContactViewController {
                     case .Phones: contact.phones.removeAtIndex(indexPath.row)
                     case .Emails: contact.emails.removeAtIndex(indexPath.row)
                     case .Addresses: contact.addresses.removeAtIndex(indexPath.row)
+                    case .SocialProfiles: contact.socialProfiles.removeAtIndex(indexPath.row)
                     case .Selects, .Notes: return
                 }
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
@@ -284,11 +293,12 @@ extension EditContactViewController {
     }
 
     func indexPathIsAddCell(indexPath: NSIndexPath) -> Bool {
-        if !addingRowsEnabled {
+        let section = sections[indexPath.section]
+        if !showAddRowForSection(section: section) {
             return false
         }
-        switch sections[indexPath.section] {
-        case .Phones, .Emails, .Addresses:
+        switch section {
+        case .Phones, .Emails, .Addresses, .SocialProfiles:
             return indexPath.row == self.tableView(tableView, numberOfRowsInSection: indexPath.section) - 1
         case .Selects, .Notes:
             return false
@@ -308,7 +318,8 @@ extension EditContactViewController: ContactFieldTableViewCellDelegate {
         }
         let section = sections[indexPath.section]
         let field = fieldsInSection(section)[indexPath.row]
-        let namePicker = ContactFieldNamePickerViewController(indexPath: indexPath)
+        let labels = field.dynamicType.labelOptions()
+        let namePicker = ContactFieldNamePickerViewController(indexPath: indexPath, labels: labels)
         namePicker.activeLabels = [field.label]
         namePicker.allowsMultipleSelection = false
         namePicker.delegate = self
@@ -329,6 +340,7 @@ extension EditContactViewController: LabelPickerTableViewControllerDelegate {
                 case .Phones: contact.phones[indexPath.row].label = label
                 case .Emails: contact.emails[indexPath.row].label = label
                 case .Addresses: contact.addresses[indexPath.row].label = label
+                case .SocialProfiles: contact.socialProfiles[indexPath.row].label = label
                 case .Selects, .Notes: return
             }
             tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)

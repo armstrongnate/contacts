@@ -109,10 +109,10 @@ class EditContactViewControllerTests: XCTestCase {
         contact.addresses.append(Address(label: "address"))
 
         let vc = EditContactViewController(contact: contact)
+        vc.showAddRowForSection = { section in return false }
         XCTAssert(vc.view != nil)
         let tableView = vc.tableView
 
-        vc.addingRowsEnabled = false
         XCTAssertEqual(1, tableView.numberOfRowsInSection(0))
 
         XCTAssertEqual(176, vc.tableView(tableView, heightForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 2)))
@@ -123,7 +123,7 @@ class EditContactViewControllerTests: XCTestCase {
         contact.selectOptions.append(SelectOption(label: "Type", options: ["radio", "digital"]))
 
         let vc = EditContactViewController(contact: contact)
-        vc.addingRowsEnabled = false
+        vc.showAddRowForSection = { section in return false }
         XCTAssert(vc.view != nil)
         let tableView = vc.tableView
 

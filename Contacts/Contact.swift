@@ -14,6 +14,7 @@ public struct Contact {
     public var emails: [Email] = []
     public var phones: [Phone] = []
     public var addresses: [Address] = []
+    public var socialProfiles: [SocialProfile] = []
     public var selectOptions: [SelectOption] = []
 
     public init() {}

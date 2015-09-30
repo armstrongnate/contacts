@@ -14,11 +14,7 @@ protocol LabelPickerTableViewControllerDelegate {
 
 class LabelPickerTableViewController: UITableViewController {
     
-    var labels: [String] {
-        didSet {
-            activeIndexes = Array(count: labels.count, repeatedValue: false)
-        }
-    }
+    let labels: [String]
     var delegate: LabelPickerTableViewControllerDelegate?
     var activeLabels: [String] {
         get {
@@ -33,11 +29,12 @@ class LabelPickerTableViewController: UITableViewController {
             tableView.reloadData()
         }
     }
-    var activeIndexes: [Bool]!
+    var activeIndexes: [Bool]
     var allowsMultipleSelection = true
 
     init(labels: [String]) {
         self.labels = labels
+        self.activeIndexes = Array(count: labels.count, repeatedValue: false)
         super.init(style: .Grouped)
     }
 

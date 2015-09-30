@@ -319,6 +319,7 @@ extension EditContactViewController: LabelPickerTableViewControllerDelegate {
             if selectedIndexPath.section == Section.Selects.rawValue {
                 contact.selectOptions[selectedIndexPath.row].values = [selection]
             }
+            tableView.reloadData()
             navigationController?.popViewControllerAnimated(true)
         }
     }

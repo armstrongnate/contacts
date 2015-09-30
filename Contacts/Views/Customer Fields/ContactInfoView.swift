@@ -64,7 +64,7 @@ public class ContactInfoView: UIView {
         addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-20-[stackView]-20-|",
             options: NSLayoutFormatOptions(rawValue: 0),
             metrics: nil, views: ["stackView": stackView]))
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-20-[stackView(150)]",
+        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-20-[stackView]-20-|",
             options: NSLayoutFormatOptions(rawValue: 0),
             metrics: nil, views: ["stackView": stackView]))
     }

@@ -83,10 +83,15 @@ class AddressFieldTableViewCell: ContactFieldTableViewCell {
 public class AddressSeparatorTextField: UITextField {
     
     var startingX: CGFloat = 0
+    var separatorHidden = false
+    let border = CALayer()
     
     override public func layoutSubviews() {
         super.layoutSubviews()
-        let border = CALayer()
+        border.removeFromSuperlayer()
+        if separatorHidden {
+            return
+        }
         let width: CGFloat = 0.5
         border.borderColor = UIColor.lightGrayColor().CGColor
         border.frame = CGRect(

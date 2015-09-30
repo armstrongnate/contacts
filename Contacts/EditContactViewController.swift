@@ -169,7 +169,8 @@ extension EditContactViewController {
             case .Phones: name = "phone"
             case .Emails: name = "email"
             case .Addresses: name = "address"
-            default: name = ""
+            case .SocialProfiles: name = "social profile"
+            case .Selects, .Notes: name = ""
         }
         let cell = UITableViewCell(style: .Default, reuseIdentifier: "insertField")
         cell.textLabel!.text = "add \(name)"

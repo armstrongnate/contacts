@@ -17,6 +17,7 @@ class SelectFieldTableViewCell: UITableViewCell {
     init(selectOption: SelectOption) {
         super.init(style: .Value1, reuseIdentifier: "selectOptionCell")
         textLabel!.text = selectOption.label
+        detailTextLabel!.numberOfLines = 0
         if selectOption.values.count > 0 {
             detailTextLabel!.text = selectOption.values.joinWithSeparator(", ")
         }

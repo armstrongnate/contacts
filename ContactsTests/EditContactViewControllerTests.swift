@@ -123,6 +123,7 @@ class EditContactViewControllerTests: XCTestCase {
         contact.selectOptions.append(SelectOption(label: "Type", options: ["radio", "digital"]))
 
         let vc = EditContactViewController(contact: contact)
+        vc.addingRowsEnabled = false
         XCTAssert(vc.view != nil)
         let tableView = vc.tableView
 
@@ -132,7 +133,8 @@ class EditContactViewControllerTests: XCTestCase {
 
         vc.contact.selectOptions[0].values = ["radio", "digital"]
         vc.tableView.reloadData()
-        typeCell = vc.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: EditContactViewController.Section.Selects.rawValue))
+        let indexPath = NSIndexPath(forRow: 0, inSection: EditContactViewController.Section.Selects.rawValue)
+        typeCell = vc.tableView(tableView, cellForRowAtIndexPath: indexPath)
         XCTAssertEqual("radio, digital", typeCell.detailTextLabel!.text)
     }
 

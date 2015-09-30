@@ -179,9 +179,9 @@ extension EditContactViewController {
     }
 
     override public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let section = Section(rawValue: indexPath.section)!
         if indexPathIsAddCell(indexPath) {
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
             tableView.beginUpdates()
             CATransaction.begin()
             CATransaction.setCompletionBlock {

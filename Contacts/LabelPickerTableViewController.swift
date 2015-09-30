@@ -82,7 +82,7 @@ extension LabelPickerTableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        activeIndexes[indexPath.row] = true
+        activeIndexes[indexPath.row] = !activeIndexes[indexPath.row]
         if !allowsMultipleSelection {
             delegate?.labelPicker(self, didSelectLabels: activeLabels)
             return

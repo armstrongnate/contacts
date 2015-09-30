@@ -113,9 +113,9 @@ class EditContactViewControllerTests: XCTestCase {
         let tableView = vc.tableView
 
         vc.addingRowsEnabled = false
-        XCTAssertEqual(1, tableView.numberOfRowsInSection(EditContactViewController.Section.Phones.rawValue))
+        XCTAssertEqual(1, tableView.numberOfRowsInSection(0))
 
-        XCTAssertEqual(176, vc.tableView(tableView, heightForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: EditContactViewController.Section.Addresses.rawValue)))
+        XCTAssertEqual(176, vc.tableView(tableView, heightForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 2)))
     }
 
     func testSelectOptions() {
@@ -127,13 +127,13 @@ class EditContactViewControllerTests: XCTestCase {
         XCTAssert(vc.view != nil)
         let tableView = vc.tableView
 
-        var typeCell = vc.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: EditContactViewController.Section.Selects.rawValue))
+        var typeCell = vc.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 3))
         XCTAssertEqual("Type", typeCell.textLabel!.text)
-        XCTAssertEqual("Select Type", typeCell.detailTextLabel!.text)
+        XCTAssertEqual("", typeCell.detailTextLabel!.text)
 
         vc.contact.selectOptions[0].values = ["radio", "digital"]
         vc.tableView.reloadData()
-        let indexPath = NSIndexPath(forRow: 0, inSection: EditContactViewController.Section.Selects.rawValue)
+        let indexPath = NSIndexPath(forRow: 0, inSection: 3)
         typeCell = vc.tableView(tableView, cellForRowAtIndexPath: indexPath)
         XCTAssertEqual("radio, digital", typeCell.detailTextLabel!.text)
     }

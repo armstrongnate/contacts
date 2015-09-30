@@ -16,8 +16,8 @@ public protocol EditContactViewControllerDelegate {
 
 public class EditContactViewController: UITableViewController {
 
-    enum Section: Int {
-        case Phones = 0, Emails, Addresses, Selects
+    public enum Section {
+        case Phones, Emails, Addresses, Selects
 
     }
 
@@ -36,6 +36,7 @@ public class EditContactViewController: UITableViewController {
         return UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "save")
     }()
 
+    public var sections: [Section] = [.Phones, .Emails, .Addresses, .Selects]
     public var addingRowsEnabled = true {
         didSet {
             tableView.reloadData()
@@ -109,22 +110,17 @@ public class EditContactViewController: UITableViewController {
 extension EditContactViewController {
 
     override public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 4
+        return sections.count
     }
 
     override public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let section = Section(rawValue: section) else {
-            fatalError("unknown section")
-        }
-        let num = fieldsInSection(section).count
+        let num = fieldsInSection(sections[section]).count
         return addingRowsEnabled ? num + 1 : num
     }
 
     override public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
-        guard let section = Section(rawValue: indexPath.section) else {
-            fatalError("unknown section")
-        }
+        let section = sections[indexPath.section]
 
         let fields = fieldsInSection(section)
         if indexPath.row == fields.count {
@@ -172,14 +168,14 @@ extension EditContactViewController {
 extension EditContactViewController {
 
     override public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if Section(rawValue: indexPath.section)! == .Addresses && !indexPathIsAddCell(indexPath) {
+        if sections[indexPath.section] == .Addresses && !indexPathIsAddCell(indexPath) {
             return 176
         }
         return 44
     }
 
     override public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let section = Section(rawValue: indexPath.section)!
+        let section = sections[indexPath.section]
         if indexPathIsAddCell(indexPath) {
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
             tableView.beginUpdates()
@@ -232,13 +228,10 @@ extension EditContactViewController {
     override public func tableView(tableView: UITableView,
         commitEditingStyle editingStyle: UITableViewCellEditingStyle,
         forRowAtIndexPath indexPath: NSIndexPath) {
-            guard let section = Section(rawValue: indexPath.section) else {
-                fatalError("unknown section")
-            }
             switch editingStyle {
             case .Delete:
                 tableView.beginUpdates()
-                switch section {
+                switch sections[indexPath.section] {
                     case .Phones: contact.phones.removeAtIndex(indexPath.row)
                     case .Emails: contact.emails.removeAtIndex(indexPath.row)
                     case .Addresses: contact.addresses.removeAtIndex(indexPath.row)
@@ -252,7 +245,7 @@ extension EditContactViewController {
     }
 
     override public func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return indexPathIsAddCell(indexPath) || indexPath.section == Section.Selects.rawValue
+        return indexPathIsAddCell(indexPath) || sections[indexPath.section] == .Selects
     }
 
     override public func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -270,7 +263,7 @@ extension EditContactViewController {
     }
 
     func indexPathIsAddCell(indexPath: NSIndexPath) -> Bool {
-        if !addingRowsEnabled || indexPath.section == Section.Selects.rawValue {
+        if !addingRowsEnabled || sections[indexPath.section] == .Selects {
             return false
         }
         return indexPath.row == self.tableView(tableView, numberOfRowsInSection: indexPath.section) - 1
@@ -284,9 +277,10 @@ extension EditContactViewController: ContactFieldTableViewCellDelegate {
         guard changingFieldLabelsEnabled else {
             return
         }
-        guard let indexPath = tableView.indexPathForCell(customerFieldCell), section = Section(rawValue: indexPath.section) else {
-            fatalError("error with indexPath")
+        guard let indexPath = tableView.indexPathForCell(customerFieldCell) else {
+            return
         }
+        let section = sections[indexPath.section]
         let field = fieldsInSection(section)[indexPath.row]
         let namePicker = ContactFieldNamePickerViewController(indexPath: indexPath)
         namePicker.activeLabel = field.label
@@ -305,7 +299,7 @@ extension EditContactViewController: LabelPickerTableViewControllerDelegate {
     func labelPicker(picker: LabelPickerTableViewController, didSelectLabel label: String) {
         if let fieldPicker = picker as? ContactFieldNamePickerViewController {
             let indexPath = fieldPicker.indexPath
-            let section = Section(rawValue: indexPath.section)!
+            let section = sections[indexPath.section]
             switch section {
                 case .Phones: contact.phones[indexPath.row].label = label
                 case .Emails: contact.emails[indexPath.row].label = label
@@ -316,7 +310,7 @@ extension EditContactViewController: LabelPickerTableViewControllerDelegate {
             dismissVC()
         }
         else if let selectedIndexPath = tableView.indexPathForSelectedRow, selection = picker.activeLabel {
-            if selectedIndexPath.section == Section.Selects.rawValue {
+            if sections[selectedIndexPath.section] == .Selects {
                 contact.selectOptions[selectedIndexPath.row].values = [selection]
                 tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .None)
             }

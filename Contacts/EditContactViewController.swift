@@ -202,6 +202,7 @@ extension EditContactViewController {
         else if section == .Selects {
             let selectOption = contact.selectOptions[indexPath.row]
             let picker = LabelPickerTableViewController(labels: selectOption.options)
+            picker.activeLabels = selectOption.values
             picker.delegate = self
             let navController = UINavigationController(rootViewController: picker)
             navController.navigationItem.leftBarButtonItem =
@@ -283,7 +284,8 @@ extension EditContactViewController: ContactFieldTableViewCellDelegate {
         let section = sections[indexPath.section]
         let field = fieldsInSection(section)[indexPath.row]
         let namePicker = ContactFieldNamePickerViewController(indexPath: indexPath)
-        namePicker.activeLabel = field.label
+        namePicker.activeLabels = [field.label]
+        namePicker.allowsMultipleSelection = false
         namePicker.delegate = self
         let navController = UINavigationController(rootViewController: namePicker)
         navController.navigationItem.leftBarButtonItem =
@@ -296,8 +298,9 @@ extension EditContactViewController: ContactFieldTableViewCellDelegate {
 // MARK: - LabelPickerTableViewControllerDelegate
 extension EditContactViewController: LabelPickerTableViewControllerDelegate {
 
-    func labelPicker(picker: LabelPickerTableViewController, didSelectLabel label: String) {
+    func labelPicker(picker: LabelPickerTableViewController, didSelectLabels labels: [String]) {
         if let fieldPicker = picker as? ContactFieldNamePickerViewController {
+            let label = labels.first!
             let indexPath = fieldPicker.indexPath
             let section = sections[indexPath.section]
             switch section {
@@ -309,9 +312,9 @@ extension EditContactViewController: LabelPickerTableViewControllerDelegate {
             tableView.reloadData()
             dismissVC()
         }
-        else if let selectedIndexPath = tableView.indexPathForSelectedRow, selection = picker.activeLabel {
+        else if let selectedIndexPath = tableView.indexPathForSelectedRow {
             if sections[selectedIndexPath.section] == .Selects {
-                contact.selectOptions[selectedIndexPath.row].values = [selection]
+                contact.selectOptions[selectedIndexPath.row].values = picker.activeLabels
                 tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .None)
             }
             navigationController?.popViewControllerAnimated(true)

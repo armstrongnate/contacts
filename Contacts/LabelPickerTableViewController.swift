@@ -9,25 +9,33 @@
 import UIKit
 
 protocol LabelPickerTableViewControllerDelegate {
-    func labelPicker(picker: LabelPickerTableViewController, didSelectLabel label: String)
+    func labelPicker(picker: LabelPickerTableViewController, didSelectLabels labels: [String])
 }
 
 class LabelPickerTableViewController: UITableViewController {
     
-    var labels: [String]
-    var delegate: LabelPickerTableViewControllerDelegate?
-    var activeLabel: String? {
+    var labels: [String] {
         didSet {
+            activeIndexes = Array(count: labels.count, repeatedValue: false)
+        }
+    }
+    var delegate: LabelPickerTableViewControllerDelegate?
+    var activeLabels: [String] {
+        get {
+            return labels.filter { activeIndexes[labels.indexOf($0)!] }
+        }
+        set {
+            for label in activeLabels {
+                if let index = labels.indexOf(label) {
+                    activeIndexes[index] = true
+                }
+            }
             tableView.reloadData()
         }
     }
-    var activeIndex: Int? {
-        guard let active = activeLabel else {
-            return nil
-        }
-        return labels.indexOf(active)
-    }
-    
+    var activeIndexes: [Bool]!
+    var allowsMultipleSelection = true
+
     init(labels: [String]) {
         self.labels = labels
         super.init(style: .Grouped)
@@ -39,6 +47,12 @@ class LabelPickerTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "labelCell")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "done")
+    }
+
+    func done() {
+        delegate?.labelPicker(self, didSelectLabels: activeLabels)
     }
     
 }
@@ -55,10 +69,10 @@ extension LabelPickerTableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .Default, reuseIdentifier: "labelCell")
+        let cell = tableView.dequeueReusableCellWithIdentifier("labelCell")!
         cell.textLabel!.text = labels[indexPath.row]
         cell.accessoryType = .None
-        if let activeIndex = activeIndex where activeIndex == indexPath.row {
+        if activeIndexes[indexPath.row] {
             cell.accessoryType = .Checkmark
         }
         return cell
@@ -71,8 +85,12 @@ extension LabelPickerTableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        activeLabel = labels[indexPath.row]
-        delegate?.labelPicker(self, didSelectLabel: activeLabel!)
+        activeIndexes[indexPath.row] = true
+        if !allowsMultipleSelection {
+            delegate?.labelPicker(self, didSelectLabels: activeLabels)
+            return
+        }
+        tableView.reloadData()
     }
 
 }

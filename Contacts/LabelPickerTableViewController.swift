@@ -90,9 +90,10 @@ extension LabelPickerTableViewController {
         if !allowsMultipleSelection {
             activeIndexes = Array(count: labels.count, repeatedValue: false)
             activeIndexes[indexPath.row] = true
-            return
         }
-        activeIndexes[indexPath.row] = !activeIndexes[indexPath.row]
+        else {
+            activeIndexes[indexPath.row] = !activeIndexes[indexPath.row]
+        }
         tableView.reloadData()
     }
 

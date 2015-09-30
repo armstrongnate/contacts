@@ -317,8 +317,7 @@ extension EditContactViewController: LabelPickerTableViewControllerDelegate {
         }
         else if let selectedIndexPath = tableView.indexPathForSelectedRow, selection = picker.activeLabel {
             if selectedIndexPath.section == Section.Selects.rawValue {
-                var selectOption = contact.selectOptions[selectedIndexPath.row]
-                selectOption.values = [selection]
+                contact.selectOptions[selectedIndexPath.row].values = [selection]
             }
             navigationController?.popViewControllerAnimated(true)
         }

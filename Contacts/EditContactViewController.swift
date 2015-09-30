@@ -34,10 +34,9 @@ public class EditContactViewController: UITableViewController {
     }()
 
     public var sections: [Section] = [.Phones, .Emails, .Addresses, .Selects]
-    public var showAddRowForSection: ((section: Section) -> Bool) = { section in
+    public var allowChangingRowsInSection: ((section: Section) -> Bool) = { section in
         return true
     }
-    public var editingStyleForIndexPath: ((indexPath: NSIndexPath) -> UITableViewCellEditingStyle)?
     public var changingFieldLabelsEnabled = true
     public var infoHeight: CGFloat = 200
 
@@ -116,7 +115,7 @@ extension EditContactViewController {
         switch section {
         case .Phones, .Emails, .Addresses, .SocialProfiles:
             var num = fieldsInSection(section).count
-            if showAddRowForSection(section: section) { num += 1 }
+            if allowChangingRowsInSection(section: section) { num += 1 }
             return num
         case .Selects:
             return fieldsInSection(section).count
@@ -238,8 +237,8 @@ extension EditContactViewController {
 
     override public func tableView(tableView: UITableView,
         editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-            if let callback = editingStyleForIndexPath {
-                return callback(indexPath: indexPath)
+            if !allowChangingRowsInSection(section: sections[indexPath.section]) {
+                return .None
             }
             if indexPathIsAddCell(indexPath) {
                 return .Insert
@@ -294,7 +293,7 @@ extension EditContactViewController {
 
     func indexPathIsAddCell(indexPath: NSIndexPath) -> Bool {
         let section = sections[indexPath.section]
-        if !showAddRowForSection(section: section) {
+        if !allowChangingRowsInSection(section: section) {
             return false
         }
         switch section {

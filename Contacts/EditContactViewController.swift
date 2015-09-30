@@ -21,8 +21,6 @@ public class EditContactViewController: UITableViewController {
 
     }
 
-    let infoHeight: CGFloat = 200
-
     public var contact: Contact
     public var delegate: EditContactViewControllerDelegate?
     public lazy var infoView: ContactInfoView = {
@@ -44,6 +42,7 @@ public class EditContactViewController: UITableViewController {
         }
     }
     public var changingFieldLabelsEnabled = true
+    public var infoHeight: CGFloat = 200
 
 
     public init(contact: Contact) {

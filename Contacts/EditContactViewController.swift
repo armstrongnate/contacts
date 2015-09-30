@@ -210,7 +210,7 @@ extension EditContactViewController {
             let navController = UINavigationController(rootViewController: picker)
             navController.navigationItem.leftBarButtonItem =
                 UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "dismissVC")
-            presentViewController(navController, animated: true, completion: nil)
+            navigationController?.pushViewController(picker, animated: true)
         }
     }
 

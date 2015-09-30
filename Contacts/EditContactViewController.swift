@@ -109,7 +109,7 @@ public class EditContactViewController: UITableViewController {
 extension EditContactViewController {
 
     override public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
 
     override public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

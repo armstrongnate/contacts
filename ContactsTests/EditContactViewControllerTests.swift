@@ -26,7 +26,7 @@ class EditContactViewControllerTests: XCTestCase {
         let vc = EditContactViewController(contact: contact)
         XCTAssert(vc.view != nil)
         XCTAssert(vc.infoView.primaryTextField.text!.isEmpty)
-        XCTAssertEqual(3, vc.numberOfSectionsInTableView(vc.tableView))
+        XCTAssertEqual(4, vc.numberOfSectionsInTableView(vc.tableView))
     }
 
     func testFieldSections() {

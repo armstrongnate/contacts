@@ -131,8 +131,7 @@ extension EditContactViewController {
 
         let section = sections[indexPath.section]
 
-        let fields = fieldsInSection(section)
-        if indexPath.row == fields.count {
+        if indexPathIsAddCell(indexPath) {
             return cellForInsertingFieldInSection(section)
         }
 
@@ -285,10 +284,15 @@ extension EditContactViewController {
     }
 
     func indexPathIsAddCell(indexPath: NSIndexPath) -> Bool {
-        if !addingRowsEnabled || sections[indexPath.section] == .Selects {
+        if !addingRowsEnabled {
             return false
         }
-        return indexPath.row == self.tableView(tableView, numberOfRowsInSection: indexPath.section) - 1
+        switch sections[indexPath.section] {
+        case .Phones, .Emails, .Addresses:
+            return indexPath.row == self.tableView(tableView, numberOfRowsInSection: indexPath.section) - 1
+        case .Selects, .Notes:
+            return false
+        }
     }
 }
 

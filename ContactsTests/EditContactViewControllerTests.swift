@@ -138,4 +138,19 @@ class EditContactViewControllerTests: XCTestCase {
         XCTAssertEqual("radio, digital", typeCell.detailTextLabel!.text)
     }
 
+    func testNotes() {
+        var contact = Contact()
+        contact.notes = "These are notes"
+
+        let vc = EditContactViewController(contact: contact)
+        vc.sections = [.Notes]
+        vc.tableView.reloadData()
+        XCTAssert(vc.view != nil)
+        let tableView = vc.tableView
+
+        let notesCell = vc.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! NotesFieldTableViewCell
+        XCTAssertEqual("Notes", notesCell.notesLabel.text)
+        XCTAssertEqual("These are notes", notesCell.notesTextView.text)
+    }
+
 }

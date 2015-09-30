@@ -252,7 +252,7 @@ extension EditContactViewController {
     }
 
     override public func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return indexPathIsAddCell(indexPath)
+        return indexPathIsAddCell(indexPath) || indexPath.section == Section.Selects.rawValue
     }
 
     override public func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

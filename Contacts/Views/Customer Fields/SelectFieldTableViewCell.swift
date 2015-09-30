@@ -25,6 +25,7 @@ class SelectFieldTableViewCell: UITableViewCell {
             detailTextLabel!.text = ""
         }
         accessoryType = .DisclosureIndicator
+        editingAccessoryType = .DisclosureIndicator
     }
 
     required init?(coder aDecoder: NSCoder) {

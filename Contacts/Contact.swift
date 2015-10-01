@@ -16,6 +16,8 @@ public struct Contact {
     public var addresses: [Address] = []
     public var socialProfiles: [SocialProfile] = []
     public var selectOptions: [SelectOption] = []
+    public var subcontacts: [Subcontact] = []
+    public var subcontact: Subcontact?
 
     public init() {}
 }

@@ -153,4 +153,21 @@ class EditContactViewControllerTests: XCTestCase {
         XCTAssertEqual("These are notes", notesCell.notesTextView.text)
     }
 
+    func testSubcontacts() {
+        var contact = Contact()
+        let nameField = Field(label: "Name", value: "John")
+        let titleField = Field(label: "Title", value: "")
+        contact.subcontacts.append(Subcontact(label: "contact", fields: [nameField, titleField]))
+
+        let vc = EditContactViewController(contact: contact)
+        vc.sections = [.Subcontacts]
+        vc.tableView.reloadData()
+        XCTAssert(vc.view != nil)
+        let tableView = vc.tableView
+
+        let subcontactCell = vc.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! SubcontactFieldTableViewCell
+        XCTAssertEqual("John", subcontactCell.textFields[0].text)
+        XCTAssertEqual("Title", subcontactCell.textFields[1].placeholder)
+    }
+
 }

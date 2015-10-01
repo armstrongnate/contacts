@@ -6,6 +6,11 @@
 //  Copyright © 2015 Nate Armstrong. All rights reserved.
 //
 
+public struct Field {
+    public var label: String
+    public var value: String
+}
+
 public protocol ContactField {
     var label: String { get set }
 
@@ -86,4 +91,9 @@ public struct SelectOption: ContactField {
         self.label = label
         self.options = options
     }
+}
+
+public struct Subcontact: ContactField {
+    public var label: String
+    public var fields: [Field]
 }

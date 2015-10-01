@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1D7B23FF1BBC8A230039BE6D /* NotesFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7B23FE1BBC8A230039BE6D /* NotesFieldTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		1D7B24011BBC93B10039BE6D /* SocialProfileFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7B24001BBC93B10039BE6D /* SocialProfileFieldTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		1D8A40DB1BBD8350007C235E /* SubcontactFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8A40DA1BBD8350007C235E /* SubcontactFieldTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		1DC432BB1BBC4E78006C92A8 /* SelectFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC432BA1BBC4E78006C92A8 /* SelectFieldTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		439A6FED1BB39D5D00D46E55 /* Contacts.h in Headers */ = {isa = PBXBuildFile; fileRef = 439A6FEC1BB39D5D00D46E55 /* Contacts.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		439A6FF41BB39D5D00D46E55 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 439A6FE91BB39D5D00D46E55 /* Contacts.framework */; settings = {ASSET_TAGS = (); }; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		1D7B23FE1BBC8A230039BE6D /* NotesFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesFieldTableViewCell.swift; sourceTree = "<group>"; };
 		1D7B24001BBC93B10039BE6D /* SocialProfileFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialProfileFieldTableViewCell.swift; sourceTree = "<group>"; };
+		1D8A40DA1BBD8350007C235E /* SubcontactFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubcontactFieldTableViewCell.swift; sourceTree = "<group>"; };
 		1DC432BA1BBC4E78006C92A8 /* SelectFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectFieldTableViewCell.swift; sourceTree = "<group>"; };
 		439A6FE91BB39D5D00D46E55 /* Contacts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Contacts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		439A6FEC1BB39D5D00D46E55 /* Contacts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Contacts.h; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				1DC432BA1BBC4E78006C92A8 /* SelectFieldTableViewCell.swift */,
 				1D7B23FE1BBC8A230039BE6D /* NotesFieldTableViewCell.swift */,
 				1D7B24001BBC93B10039BE6D /* SocialProfileFieldTableViewCell.swift */,
+				1D8A40DA1BBD8350007C235E /* SubcontactFieldTableViewCell.swift */,
 			);
 			path = "Customer Fields";
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 				439A70171BB3AF6800D46E55 /* ContactFieldTableViewCell.swift in Sources */,
 				1D7B24011BBC93B10039BE6D /* SocialProfileFieldTableViewCell.swift in Sources */,
 				1DC432BB1BBC4E78006C92A8 /* SelectFieldTableViewCell.swift in Sources */,
+				1D8A40DB1BBD8350007C235E /* SubcontactFieldTableViewCell.swift in Sources */,
 				439A70161BB3AF6800D46E55 /* EmailFieldTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

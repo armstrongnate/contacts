@@ -101,4 +101,9 @@ public struct SelectOption: ContactField {
 public struct Subcontact: ContactField {
     public var label: String
     public var fields: [Field]
+
+    public init(label: String, fields: [Field]) {
+        self.label = label
+        self.fields = fields
+    }
 }

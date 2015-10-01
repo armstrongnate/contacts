@@ -15,7 +15,7 @@ public protocol EditContactViewControllerDelegate {
 public class EditContactViewController: UITableViewController {
 
     public enum Section {
-        case Phones, Emails, Addresses, Selects, Notes, SocialProfiles, Subcontacts
+        case Phones, Emails, Addresses, Selects, Notes, SocialProfiles, Subcontacts, Subcontact
     }
 
     public var contact: Contact
@@ -98,7 +98,7 @@ public class EditContactViewController: UITableViewController {
             case .SocialProfiles: return contact.socialProfiles.map{ $0 as ContactField }
             case .Selects: return contact.selectOptions.map{ $0 as ContactField }
             case .Subcontacts: return contact.subcontacts.map{ $0 as ContactField }
-            case .Notes: return []
+            case .Notes, .Subcontact: return []
         }
     }
 
@@ -120,7 +120,7 @@ extension EditContactViewController {
             return num
         case .Selects:
             return fieldsInSection(section).count
-        case .Notes:
+        case .Notes, .Subcontact:
             return 1
         }
     }
@@ -164,6 +164,10 @@ extension EditContactViewController {
             let cell = NotesFieldTableViewCell()
             cell.notesTextView.text = contact.notes
             return cell
+        case .Subcontact:
+            let subcontact = Subcontact(label: "agent", fields: contact.subcontact?.fields ?? [])
+            let cell = SubcontactFieldTableViewCell(subcontact: subcontact)
+            return cell
         }
     }
 
@@ -175,7 +179,7 @@ extension EditContactViewController {
             case .Addresses: name = "address"
             case .SocialProfiles: name = "social profile"
             case .Subcontacts: name = "contact"
-            case .Selects, .Notes: name = ""
+            case .Selects, .Notes, .Subcontact: name = ""
         }
         let cell = UITableViewCell(style: .Default, reuseIdentifier: "insertField")
         cell.textLabel!.text = "add \(name)"
@@ -196,7 +200,7 @@ extension EditContactViewController {
             return 44
         case .Addresses:
             return 176
-        case .Notes, .Subcontacts:
+        case .Notes, .Subcontacts, .Subcontact:
             return 100
         }
     }
@@ -231,7 +235,7 @@ extension EditContactViewController {
                 ]
                 contact.subcontacts
                     .append(Subcontact(label: Subcontact.labelOptions().first!, fields: fields))
-            case .Selects, .Notes:
+            case .Selects, .Notes, .Subcontact:
                 return
             }
             tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
@@ -281,7 +285,7 @@ extension EditContactViewController {
                     case .Addresses: contact.addresses.removeAtIndex(indexPath.row)
                     case .SocialProfiles: contact.socialProfiles.removeAtIndex(indexPath.row)
                     case .Subcontacts: contact.subcontacts.removeAtIndex(indexPath.row)
-                    case .Selects, .Notes: return
+                    case .Selects, .Notes, .Subcontact: return
                 }
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
                 tableView.endUpdates()
@@ -316,7 +320,7 @@ extension EditContactViewController {
         switch section {
         case .Phones, .Emails, .Addresses, .SocialProfiles, .Subcontacts:
             return indexPath.row == self.tableView(tableView, numberOfRowsInSection: indexPath.section) - 1
-        case .Selects, .Notes:
+        case .Selects, .Notes, .Subcontact:
             return false
         }
     }
@@ -358,7 +362,7 @@ extension EditContactViewController: LabelPickerTableViewControllerDelegate {
                 case .Addresses: contact.addresses[indexPath.row].label = label
                 case .SocialProfiles: contact.socialProfiles[indexPath.row].label = label
                 case .Subcontacts: contact.subcontacts[indexPath.row].label = label
-                case .Selects, .Notes: return
+                case .Selects, .Notes, .Subcontact: return
             }
             tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
         }

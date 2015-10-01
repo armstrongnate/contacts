@@ -39,6 +39,9 @@ class SubcontactFieldTableViewCell: ContactFieldTableViewCell {
             fieldsStack.addArrangedSubview($0)
         }
         stackView.addArrangedSubview(nameButton)
+        if showLabelIndicator {
+            stackView.addArrangedSubview(indicatorImageView)
+        }
         stackView.addArrangedSubview(separator)
         stackView.addArrangedSubview(fieldsStack)
     }

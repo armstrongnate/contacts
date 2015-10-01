@@ -69,7 +69,9 @@ class AddressFieldTableViewCell: ContactFieldTableViewCell {
 
     override func setupStack() {
         stackView.addArrangedSubview(nameButton)
-        stackView.addArrangedSubview(indicatorImageView)
+        if showLabelIndicator {
+            stackView.addArrangedSubview(indicatorImageView)
+        }
         stackView.addArrangedSubview(separator)
         stackView.addArrangedSubview(innerStackView)
     }

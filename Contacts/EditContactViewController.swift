@@ -52,7 +52,7 @@ public class EditContactViewController: UITableViewController {
 
     override public func viewDidLoad() {
         super.viewDidLoad()
-        tableView.editing = true
+        tableView.editing = false
         tableView.allowsSelectionDuringEditing = true
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.backgroundColor = .whiteColor()
@@ -148,6 +148,7 @@ extension EditContactViewController {
             let profile = contact.socialProfiles[indexPath.row]
             let cell = SocialProfileFieldTableViewCell(socialProfile: profile)
             cell.delegate = self
+            cell.editing = true
             return cell
         case .Addresses:
             let address = contact.addresses[indexPath.row]
@@ -198,9 +199,11 @@ extension EditContactViewController {
         switch sections[indexPath.section] {
         case .Phones, .Emails, .Selects, .SocialProfiles:
             return 44
-        case .Addresses:
+        case .Addresses, .Subcontacts:
             return 176
-        case .Notes, .Subcontacts, .Subcontact:
+        case .Subcontact:
+            return 220
+        case .Notes:
             return 100
         }
     }
@@ -234,7 +237,7 @@ extension EditContactViewController {
                     Field(label: "Email", value: "")
                 ]
                 contact.subcontacts
-                    .append(Subcontact(label: Subcontact.labelOptions().first!, fields: fields))
+                    .append(Subcontact(label: "contact", fields: fields))
             case .Selects, .Notes, .Subcontact:
                 return
             }
@@ -306,10 +309,10 @@ extension EditContactViewController {
     }
 
     override public func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard section == 0 else {
-            return 20
+        if section == 0 {
+            return infoHeight
         }
-        return infoHeight
+        return 20
     }
 
     func indexPathIsAddCell(indexPath: NSIndexPath) -> Bool {

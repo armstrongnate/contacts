@@ -11,19 +11,19 @@ import UIKit
 class SubcontactFieldTableViewCell: ContactFieldTableViewCell {
 
     var subcontact: Subcontact
-    let textFields: [UITextField]
+    let textFields: [AddressSeparatorTextField]
 
     init(subcontact: Subcontact) {
         self.subcontact = subcontact
-        self.textFields = subcontact.fields.map { field in
-            let textField = UITextField()
+        self.textFields = subcontact.fields.map { (field) in
+            let textField = AddressSeparatorTextField()
             textField.placeholder = field.label
             textField.text = field.value
             return textField
         }
         super.init(style: .Default, reuseIdentifier: "subcontactCell")
         name = subcontact.label
-        textFields.forEach { addSubview($0) }
+        textFields.last?.separatorHidden = true
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -34,7 +34,10 @@ class SubcontactFieldTableViewCell: ContactFieldTableViewCell {
         let fieldsStack = UIStackView()
         fieldsStack.axis = .Vertical
         fieldsStack.distribution = .FillEqually
-        textFields.forEach { fieldsStack.addArrangedSubview($0) }
+        textFields.forEach {
+            $0.startingX = -stackView.spacing
+            fieldsStack.addArrangedSubview($0)
+        }
         stackView.addArrangedSubview(nameButton)
         stackView.addArrangedSubview(indicatorImageView)
         stackView.addArrangedSubview(separator)

@@ -33,6 +33,7 @@ class ContactFieldTableViewCell: UITableViewCell {
         button.addTarget(self, action: "nameTapped", forControlEvents: .TouchUpInside)
         button.titleLabel!.adjustsFontSizeToFitWidth = true
         button.titleLabel!.minimumScaleFactor = 0.5
+        button.titleLabel!.font = UIFont.boldSystemFontOfSize(15)
         return button
     }()
     var name: String {
@@ -100,17 +101,12 @@ class ContactFieldTableViewCell: UITableViewCell {
         separator.addConstraint(NSLayoutConstraint(item: separator,
             attribute: .Width, relatedBy: .Equal, toItem: nil,
             attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.5))
-        
-        nameButton.addConstraint(NSLayoutConstraint(item: nameButton,
-            attribute: .Width, relatedBy: .Equal, toItem: nil,
-            attribute: .NotAnAttribute, multiplier: 1.0, constant: 65))
     }
     
     func setupStack() {
-        stackView.insertArrangedSubview(nameButton, atIndex: 0)
-        stackView.insertArrangedSubview(indicatorImageView, atIndex: 1)
-        stackView.insertArrangedSubview(separator, atIndex: 2)
-        stackView.insertArrangedSubview(valueTextField, atIndex: 3)
+        stackView.addArrangedSubview(nameButton)
+        stackView.addArrangedSubview(separator)
+        stackView.addArrangedSubview(valueTextField)
     }
 
     func nameTapped() {

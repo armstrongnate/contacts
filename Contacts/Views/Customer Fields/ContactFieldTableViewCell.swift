@@ -69,6 +69,7 @@ class ContactFieldTableViewCell: UITableViewCell {
         s.backgroundColor = .lightGrayColor()
         return s
     }()
+    var showLabelIndicator = false
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -106,6 +107,9 @@ class ContactFieldTableViewCell: UITableViewCell {
     func setupStack() {
         stackView.addArrangedSubview(nameButton)
         stackView.addArrangedSubview(separator)
+        if showLabelIndicator {
+            stackView.addArrangedSubview(indicatorImageView)
+        }
         stackView.addArrangedSubview(valueTextField)
     }
 

@@ -149,6 +149,7 @@ extension EditContactViewController {
             let cell = SocialProfileFieldTableViewCell(socialProfile: profile)
             cell.delegate = self
             cell.editing = true
+            cell.showLabelIndicator = true
             return cell
         case .Addresses:
             let address = contact.addresses[indexPath.row]
